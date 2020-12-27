@@ -7,6 +7,9 @@
  Conversion to Arduino Library Copyright 2015 by Andrew Bythell <abythell@ieee.org> 
  http://angryelectron.com
  
+ Added function to get both values at a time and removed memory moving of 
+ all values to speedup Copyright 2020 by Carsten Koch-Mauthe
+ 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
  in the Software without restriction, including without limitation the rights
