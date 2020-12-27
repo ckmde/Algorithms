@@ -33,12 +33,12 @@ Anytime you want an average, just use:
 
 	float avg = yamartino.averageHeading();
 	float std = yamartino.standardDeviation();
-	
+
 Also you can get both values at a time:
   
-  struct wind_avg_values values = yamartino.getvalues();
-  float avg = values.averageHeading; 
-  float std = values.standardDeviation;
+	struct wind_avg_values values = yamartino.getvalues();
+	float avg = values.averageHeading;
+	float std = values.standardDeviation;
 
 After installing the Yamartino Library (and restarting the Arduino IDE), see
 File -> Examples -> Yamartino -> AverageWind for a complete example.
