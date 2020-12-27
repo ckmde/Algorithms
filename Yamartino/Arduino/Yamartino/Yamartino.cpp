@@ -48,7 +48,7 @@ Yamartino::Yamartino(int sampleSize) {
   // potentially odd startup behavior.
   memset(historyCos, 0, sizeof(historyCos));
   memset(historySin, 0, sizeof(historySin));
-  
+  histcnt = 0;
 }  
 
 /**
@@ -65,24 +65,10 @@ Yamartino::~Yamartino() {
  */
 void Yamartino::add(float valueDegrees) {
   float valueRadians = valueDegrees * M_PI / 180; // convert to radians to use w/ sin/cos
-
-  // move everyone value to the right by iterating through
-  // the array starting at the second item and placing  
-  // the last (i-1) value in the current position
-  // the new value takes the 0th position.
-  // we must keep the SIN and COS in order to calculate the
-  // angular averages + stdevs correctly (see YAMARTINO METHOD)
-
-  for (int i = historyLength - 1; i >= 0; i--) {
-    if(i == 0) {
-      historyCos[0] = cos(valueRadians); // put new val in the 0 position
-      historySin[0] = sin(valueRadians); // put new val in the 0 position
-    } 
-    else {
-      historyCos[i] = historyCos[i-1];
-      historySin[i] = historySin[i-1];
-    }
-  } 
+  historyCos[histcnt] = cos(valueRadians);
+  historySin[histcnt] = sin(valueRadians);
+  histcnt++;
+  if (histcnt == historyLength) {histcnt = 0;}
 }
 
 /**
@@ -133,5 +119,10 @@ float Yamartino::standardDeviation() {
   return compassStd * 180 / M_PI;
 }
 
-
-
+struct wind_avg_values Yamartino::getvalues() {
+  struct wind_avg_values values;
+  analyzeHistoryBuffer();
+  values.averageHeading = compassAvg * 180 / M_PI;
+  values.standardDeviation = compassStd * 180 / M_PI;
+  return values;
+}

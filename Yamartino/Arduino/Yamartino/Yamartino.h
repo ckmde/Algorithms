@@ -30,6 +30,11 @@
 #ifndef YAMARTINO_H
 #define YAMARTINO_H
 
+struct wind_avg_values {
+   double averageHeading;
+   double standardDeviation;
+};
+
 class Yamartino {
   
  public:
@@ -38,9 +43,11 @@ class Yamartino {
    void add(float heading);
    float averageHeading(void);
    float standardDeviation(void); 
+   struct wind_avg_values getvalues(void);
    
  private:
    int historyLength;
+   int histcnt;
    void analyzeHistoryBuffer(void);
    float *historyCos;
    float *historySin;
